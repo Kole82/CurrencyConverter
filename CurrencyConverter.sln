@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31402.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopUI", "DesktopUI\DesktopUI.csproj", "{F6D3CF57-EC97-40F5-82D0-6E7E67AAC602}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{491A7B3D-ED97-493C-BF1A-E8D9626D075C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6D3CF57-EC97-40F5-82D0-6E7E67AAC602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6D3CF57-EC97-40F5-82D0-6E7E67AAC602}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6D3CF57-EC97-40F5-82D0-6E7E67AAC602}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6D3CF57-EC97-40F5-82D0-6E7E67AAC602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{491A7B3D-ED97-493C-BF1A-E8D9626D075C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{491A7B3D-ED97-493C-BF1A-E8D9626D075C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{491A7B3D-ED97-493C-BF1A-E8D9626D075C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{491A7B3D-ED97-493C-BF1A-E8D9626D075C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5BD85DF4-4561-4B0D-B8FF-4E40B70BE3FC}
+	EndGlobalSection
+EndGlobal

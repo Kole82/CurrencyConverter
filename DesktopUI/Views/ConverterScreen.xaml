@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="DesktopUI.Views.ConverterScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="516" d:DesignWidth="318">
+
+    <Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Title -->
+            <TextBlock Grid.Row="0" 
+                       Text="Конвертер валют"
+                       Style="{StaticResource TitleText}"/>
+
+            <!-- Converter Body -->
+            <Grid Grid.Row="1">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- Left Amount Section-->
+                <TextBox Grid.Row="0"
+                         Grid.Column="0"
+                         Text="{Binding FirstCurrencyText, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource AmountText}"/>
+
+                <!-- Right Amount Section-->
+                <TextBox Grid.Row="0"
+                         Grid.Column="1"
+                         Text="{Binding SecondCurrencyText, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource AmountText}"/>
+                
+                <!-- Arrows Section -->
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="{StaticResource FontAwesomeLongLeftArrow}"
+                           HorizontalAlignment="Right"
+                           Style="{StaticResource HorizontalArrowsText}"/>
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Text="{StaticResource FontAwesomeLongRightArrow}"
+                           HorizontalAlignment="Left"
+                           Style="{StaticResource HorizontalArrowsText}"/>
+
+                <!-- Left Currency Section -->
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Text="{Binding FirstCurrency.CharCode}"
+                           Style="{StaticResource CurrencyText}"/>
+
+                <!-- Right Currency Section -->
+                <TextBlock Grid.Row="2"
+                           Grid.Column="1"
+                           Text="{Binding SecondCurrency.CharCode}"
+                           Style="{StaticResource CurrencyText}"/>
+
+                <!-- Left Change Currency Section -->
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Text="Изменить валюту"
+                           Style="{StaticResource ChangeCurrencyText}">
+
+                    <TextBlock.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                                      Command="{Binding CurrencyScreenCommand}"
+                                      CommandParameter="True"/>
+                    </TextBlock.InputBindings>
+                </TextBlock>
+
+                <!-- Left Change Currency Section -->
+                <TextBlock Grid.Row="3"
+                           Grid.Column="1"
+                           Text="Изменить валюту"
+                           Style="{StaticResource ChangeCurrencyText}">
+
+                    <TextBlock.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                                      Command="{Binding CurrencyScreenCommand}"
+                                      CommandParameter="False"/>
+                    </TextBlock.InputBindings>
+                </TextBlock>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

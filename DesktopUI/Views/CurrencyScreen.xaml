@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="DesktopUI.Views.CurrencyScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:DesktopUI.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="516" d:DesignWidth="318"
+             Loaded="CurrencyScreen_Loaded">
+
+    <Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Title -->
+            <TextBlock Grid.Row="0"
+                       Text="Выбор валют"
+                       Style="{StaticResource TitleText}"/>
+
+            <!-- Currencies -->
+            <ScrollViewer Grid.Row="1"
+                          VerticalScrollBarVisibility="Auto"
+                          x:Name="scrollViewer">
+
+                <ItemsControl ItemsSource="{Binding Currencies}"
+                              x:Name="itemsControl">
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:CurrencyListItem/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>

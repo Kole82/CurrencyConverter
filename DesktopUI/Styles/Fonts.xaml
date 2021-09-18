@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <FontFamily x:Key="FontAwesome">pack://application:,,,/Fonts/#FontAwesome</FontFamily>
+
+    <system:String x:Key="FontAwesomeLoadingIcon">&#xf110;</system:String>
+    <system:String x:Key="FontAwesomeLongLeftArrow">&#xf177;</system:String>
+    <system:String x:Key="FontAwesomeLongRightArrow">&#xf178;</system:String>
+    <system:String x:Key="FontAwesomeCheck">&#xf00c;</system:String>
+    
+    <system:Double x:Key="FontSizeSmall">18</system:Double>
+    <system:Double x:Key="FontSizeRegular">20</system:Double>
+    <system:Double x:Key="FontSizeMedium">24</system:Double>
+    <system:Double x:Key="FontSizeLarge">30</system:Double>
+    <system:Double x:Key="FontSizeHuge">50</system:Double>
+</ResourceDictionary>
