@@ -21,4 +21,7 @@
 
     <SolidColorBrush x:Key="ForegroundDarkGrayBrush"
                      Color="{StaticResource ForegroundDarkGray}"/>
+
+    <SolidColorBrush x:Key="ErrorLightRedBrush"
+                     Color="{StaticResource ErrorLightRed}"/>
 </ResourceDictionary>

@@ -53,6 +53,12 @@
         <Setter Property="Margin" Value="10 0 10 0"/>
         <Setter Property="TextAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="{StaticResource ForegroundDarkGrayBrush}"/>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsError}" Value="True">
+                <Setter Property="Background" Value="{StaticResource ErrorLightRedBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
     
     <!-- Horizontal Arrows Text -->

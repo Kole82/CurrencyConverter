@@ -8,4 +8,6 @@
     <Color x:Key="ForegroundDarkBlue">#007ACC</Color>
     <Color x:Key="ForegroundLightGray">#B3B3B3</Color>
     <Color x:Key="ForegroundDarkGray">#333639</Color>
+    
+    <Color x:Key="ErrorLightRed">#F89EA3</Color>
 </ResourceDictionary>

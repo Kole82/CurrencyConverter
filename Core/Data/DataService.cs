@@ -29,14 +29,7 @@ namespace Core.Data
 
             using (HttpClient client = new HttpClient())
             {
-                try
-                {
-                    responseBody = await client.GetStringAsync(url);
-                }
-                catch (HttpRequestException e)
-                {
-                    //UIManager
-                }
+                responseBody = await client.GetStringAsync(url);
             }
 
             return responseBody;

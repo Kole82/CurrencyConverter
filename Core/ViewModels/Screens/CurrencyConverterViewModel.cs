@@ -4,6 +4,7 @@ using Core.Data.Models;
 using Core.Services;
 using Core.ViewModels.Controls;
 using DevExpress.Mvvm;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -19,8 +20,9 @@ namespace Core.ViewModels.Screens
         // Indicates if a textbox is being edited
         // Used to prevent simultaneous editing of the textboxes
         private bool _isEditingText = false;
+        private bool _isfirstCurrency;
 
-        private decimal result;
+        private decimal _result;
 
         #endregion
 
@@ -51,10 +53,12 @@ namespace Core.ViewModels.Screens
 
                 if (firstCurrency)
                 {
+                    _isfirstCurrency = true;
                     SelectedCurrency = FirstCurrency;
                 }
                 else
                 {
+                    _isfirstCurrency = false;
                     SelectedCurrency = SecondCurrency;
                 }
 
@@ -117,14 +121,25 @@ namespace Core.ViewModels.Screens
                     if (string.IsNullOrEmpty(FirstCurrencyText))
                     {
                         SecondCurrencyText = string.Empty;
+                        IsError = false;
                     }
                     else
                     {
-                        //TODO: catch overflow
-                        result = _currencyProcessor.Exchange(
-                            FirstCurrency.Value, SecondCurrency.Value, decimal.Parse(FirstCurrencyText));
+                        try
+                        {
+                            _result = _currencyProcessor.Exchange(
+                                FirstCurrency.Value, SecondCurrency.Value, decimal.Parse(FirstCurrencyText));
 
-                        SecondCurrencyText = string.Format("{0:0.##}", result);
+                            _result = Math.Round(_result, 2);
+
+                            SecondCurrencyText = string.Format("{0:0.##}", _result);
+
+                            IsError = false;
+                        }
+                        catch (OverflowException e)
+                        {
+                            IsError = true;
+                        }
                     }
 
                     _isEditingText = false;
@@ -152,19 +167,36 @@ namespace Core.ViewModels.Screens
                     if (string.IsNullOrEmpty(SecondCurrencyText))
                     {
                         FirstCurrencyText = string.Empty;
+                        IsError = false;
                     }
                     else
                     {
-                        //TODO: catch overflow
-                        result = _currencyProcessor.Exchange(
-                            SecondCurrency.Value, FirstCurrency.Value, decimal.Parse(SecondCurrencyText));
+                        try
+                        {
+                            _result = _currencyProcessor.Exchange(
+                                SecondCurrency.Value, FirstCurrency.Value, decimal.Parse(SecondCurrencyText));
 
-                        FirstCurrencyText = string.Format("{0:0.##}", result);
+                            _result = Math.Round(_result, 2);
+
+                            FirstCurrencyText = string.Format("{0:0.##}", _result);
+
+                            IsError = false;
+                        }
+                        catch (OverflowException e)
+                        {
+                            IsError = true;
+                        }
                     }
 
                     _isEditingText = false;
                 }
             }
+        }
+
+        public bool IsError
+        {
+            get => GetValue<bool>();
+            set => SetValue(value);
         }
 
         public ObservableCollection<CurrencyListItemViewModel> Currencies { get; private set; }
@@ -181,7 +213,7 @@ namespace Core.ViewModels.Screens
 
         private void OnMessage(CurrencyListItemViewModel selectedCurrency)
         {
-            if (SelectedCurrency == FirstCurrency)
+            if (_isfirstCurrency)
             {
                 FirstCurrency = selectedCurrency;
             }

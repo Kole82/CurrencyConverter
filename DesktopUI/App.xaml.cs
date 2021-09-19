@@ -3,6 +3,7 @@ using Core.Data;
 using Core.Data.Models;
 using Core.Services;
 using DevExpress.Mvvm;
+using System;
 using System.Windows;
 
 namespace DesktopUI
@@ -16,7 +17,17 @@ namespace DesktopUI
         {
             base.OnStartup(e);
 
-            await IoC.Resolve<IRepository<Currency>>().LoadDataAsync();
+            try
+            {
+                await IoC.Resolve<IRepository<Currency>>().LoadDataAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error occurred! The process will be terminated. Exception details: {ex}");
+                Current.MainWindow.Close();
+            }
+
+
             Messenger.Default.Send(Screen.Converter);
         }
     }

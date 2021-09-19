@@ -4,8 +4,7 @@ using System.Text.RegularExpressions;
 namespace Core.Services
 {
     /// <summary>
-    /// Provides a basic infrastructure to work with currencies.
-    /// Currently supports only russian and american region formats.
+    /// Provides basic infrastructure to work with currencies.
     /// </summary>
     public class CurrencyProcessor : ICurrencyProcess
     {
