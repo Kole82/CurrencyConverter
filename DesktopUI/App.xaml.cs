@@ -2,7 +2,7 @@
 using Core.Data;
 using Core.Data.Models;
 using Core.Services;
-using Core.ViewModels;
+using DevExpress.Mvvm;
 using System.Windows;
 
 namespace DesktopUI
@@ -17,7 +17,7 @@ namespace DesktopUI
             base.OnStartup(e);
 
             await IoC.Resolve<IRepository<Currency>>().LoadDataAsync();
-            IoC.Resolve<ApplicationViewModel>().GoToPage(Screen.Converter);
+            Messenger.Default.Send(Screen.Converter);
         }
     }
 }

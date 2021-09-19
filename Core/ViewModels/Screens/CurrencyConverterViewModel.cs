@@ -31,6 +31,8 @@ namespace Core.ViewModels.Screens
             _repo = repo;
             _currencyProcessor = currencyProcessor;
 
+            Messenger.Default.Register<CurrencyListItemViewModel>(this, OnMessage);
+
             Currencies = new ObservableCollection<CurrencyListItemViewModel>(
                 _repo.GetAll().Select(c => new CurrencyListItemViewModel
                 {
@@ -44,26 +46,22 @@ namespace Core.ViewModels.Screens
 
             CurrencyScreenCommand = new DelegateCommand<bool>((firstCurrency) =>
             {
+                FirstCurrency.IsSelected = false;
+                SecondCurrency.IsSelected = false;
+
                 if (firstCurrency)
                 {
-                    IsFirstCurrency = true;
-                    FirstCurrency.IsSelected = true;
-
-                    // in case one and the same currency is selected
-                    if (!FirstCurrency.Equals(SecondCurrency))
-                        SecondCurrency.IsSelected = false;
+                    SelectedCurrency = FirstCurrency;
                 }
                 else
                 {
-                    IsFirstCurrency = false;
-                    SecondCurrency.IsSelected = true;
-
-                    // in case one and the same currency is selected
-                    if (!FirstCurrency.Equals(SecondCurrency))
-                        FirstCurrency.IsSelected = false;
+                    SelectedCurrency = SecondCurrency;
                 }
 
-                IoC.Resolve<ApplicationViewModel>().GoToPage(Screen.Currency);
+                SelectedCurrency.IsSelected = true;
+
+                Messenger.Default.Send(SelectedCurrency);
+                Messenger.Default.Send(Screen.Currency);
             });
         }
 
@@ -96,6 +94,8 @@ namespace Core.ViewModels.Screens
                 SecondCurrencyText = SecondCurrencyText;
             }
         }
+
+        public CurrencyListItemViewModel SelectedCurrency { get; private set; }
 
         public string FirstCurrencyText
         {
@@ -169,13 +169,27 @@ namespace Core.ViewModels.Screens
 
         public ObservableCollection<CurrencyListItemViewModel> Currencies { get; private set; }
 
-        public bool IsFirstCurrency { get; private set; }
-
         #endregion
 
         #region Commands
 
         public DelegateCommand<bool> CurrencyScreenCommand { get; private set; }
+
+        #endregion
+
+        #region Private Helpers
+
+        private void OnMessage(CurrencyListItemViewModel selectedCurrency)
+        {
+            if (SelectedCurrency == FirstCurrency)
+            {
+                FirstCurrency = selectedCurrency;
+            }
+            else
+            {
+                SecondCurrency = selectedCurrency;
+            }
+        }
 
         #endregion
     }

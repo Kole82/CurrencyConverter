@@ -10,6 +10,9 @@ namespace Core.ViewModels
         public ApplicationViewModel()
         {
             CurrentScreen = Screen.Loading;
+
+            // Subscribe to the Messenger. 
+            Messenger.Default.Register<Screen>(this, OnMessage);
         }
 
         #endregion
@@ -24,9 +27,9 @@ namespace Core.ViewModels
 
         #endregion
 
-        #region Public Methods
+        #region Private Helpers
 
-        public void GoToPage(Screen screen) => CurrentScreen = screen;
+        private void OnMessage(Screen screen) => CurrentScreen = screen;
 
         #endregion
     }

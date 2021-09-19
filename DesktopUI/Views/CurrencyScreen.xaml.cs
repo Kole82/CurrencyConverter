@@ -20,16 +20,7 @@ namespace DesktopUI.Views
         private void CurrencyScreen_Loaded(object sender, RoutedEventArgs e)
         {
             double itemHeight = (itemsControl.ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement).ActualHeight;
-            int index = 0;
-
-            if (IoC.Resolve<CurrencyConverterViewModel>().IsFirstCurrency)
-            {
-                index = IoC.Resolve<CurrencyConverterViewModel>().Currencies.IndexOf(IoC.Resolve<CurrencyConverterViewModel>().FirstCurrency);
-            }
-            else
-            {
-                index = IoC.Resolve<CurrencyConverterViewModel>().Currencies.IndexOf(IoC.Resolve<CurrencyConverterViewModel>().SecondCurrency);
-            }
+            int index = IoC.Resolve<CurrencyConverterViewModel>().Currencies.IndexOf(IoC.Resolve<CurrencyConverterViewModel>().SelectedCurrency);
 
             scrollViewer.ScrollToVerticalOffset(index * itemHeight);
         }

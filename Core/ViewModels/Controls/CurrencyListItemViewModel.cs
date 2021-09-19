@@ -1,32 +1,29 @@
 ﻿using Core.AppData;
-using Core.ViewModels.Screens;
-using Core.Services;
 using DevExpress.Mvvm;
 
 namespace Core.ViewModels.Controls
 {
     public class CurrencyListItemViewModel : BindableBase
     {
+        #region Private Fields
+
+        private CurrencyListItemViewModel _selectedCurrency;
+
+        #endregion
+
         #region Constructors
 
         public CurrencyListItemViewModel()
         {
+            Messenger.Default.Register<CurrencyListItemViewModel>(this, OnMessage);
+
             ConverterScreenCommand = new DelegateCommand(() =>
             {
-                if (IoC.Resolve<CurrencyConverterViewModel>().IsFirstCurrency)
-                {
-                    IoC.Resolve<CurrencyConverterViewModel>().FirstCurrency.IsSelected = false;
-                    IsSelected = true;
-                    IoC.Resolve<CurrencyConverterViewModel>().FirstCurrency = this;
-                }
-                else
-                {
-                    IoC.Resolve<CurrencyConverterViewModel>().SecondCurrency.IsSelected = false;
-                    IsSelected = true;
-                    IoC.Resolve<CurrencyConverterViewModel>().SecondCurrency = this;
-                }
+                _selectedCurrency.IsSelected = false;
+                IsSelected = true;
 
-                IoC.Resolve<ApplicationViewModel>().GoToPage(Screen.Converter);
+                Messenger.Default.Send(this);
+                Messenger.Default.Send(Screen.Converter);
             });
         }
 
@@ -63,6 +60,12 @@ namespace Core.ViewModels.Controls
         #region Commands
 
         public DelegateCommand ConverterScreenCommand { get; private set; }
+
+        #endregion
+
+        #region Private Helpers
+
+        private void OnMessage(CurrencyListItemViewModel selectedCurrency) => _selectedCurrency = selectedCurrency;
 
         #endregion
     }
