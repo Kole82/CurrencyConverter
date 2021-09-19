@@ -7,6 +7,9 @@ using System.Windows.Data;
 
 namespace DesktopUI.Converters
 {
+    /// <summary>
+    /// Converts the <see cref="Screen"/> enum values to corresponding views.
+    /// </summary>
     public class EnumToScreenConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

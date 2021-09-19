@@ -6,6 +6,9 @@ using Ninject;
 
 namespace Core.Services
 {
+    /// <summary>
+    /// The dependency inversion container class.
+    /// </summary>
     public static class IoC
     {
         #region Private Fields

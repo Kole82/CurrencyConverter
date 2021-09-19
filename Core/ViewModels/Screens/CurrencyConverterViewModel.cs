@@ -10,6 +10,9 @@ using System.Linq;
 
 namespace Core.ViewModels.Screens
 {
+    /// <summary>
+    /// The view model class providing for the ConverterScreen and CurrencyScreen views.
+    /// </summary>
     public class CurrencyConverterViewModel : BindableBase
     {
         #region Private Fields
@@ -17,8 +20,8 @@ namespace Core.ViewModels.Screens
         private readonly IRepository<Currency> _repo;
         private readonly ICurrencyProcess _currencyProcessor;
 
-        // Indicates if a textbox is being edited
-        // Used to prevent simultaneous editing of the textboxes
+        // Indicates if a textbox is being edited.
+        // Used to prevent simultaneous editing of the textboxes.
         private bool _isEditingText = false;
         private bool _isfirstCurrency;
 
@@ -43,9 +46,11 @@ namespace Core.ViewModels.Screens
                     Value = c.Value
                 }));
 
+            // Setting initial values for a currency pair.
             FirstCurrency = Currencies.FirstOrDefault(c => c.CharCode == "RUB");
             SecondCurrency = Currencies.FirstOrDefault(c => c.CharCode == "USD");
 
+            // Command initialization.
             CurrencyScreenCommand = new DelegateCommand<bool>((firstCurrency) =>
             {
                 FirstCurrency.IsSelected = false;
@@ -64,7 +69,9 @@ namespace Core.ViewModels.Screens
 
                 SelectedCurrency.IsSelected = true;
 
+                // Sends a message to the CurrencyScreen view model.
                 Messenger.Default.Send(SelectedCurrency);
+                // Sends a message to the Application view model.
                 Messenger.Default.Send(Screen.Currency);
             });
         }
@@ -73,6 +80,9 @@ namespace Core.ViewModels.Screens
 
         #region Public Properties
 
+        /// <summary>
+        /// The left-hand side currency.
+        /// </summary>
         public CurrencyListItemViewModel FirstCurrency
         {
             get => GetValue<CurrencyListItemViewModel>();
@@ -86,6 +96,9 @@ namespace Core.ViewModels.Screens
             }
         }
 
+        /// <summary>
+        /// The right-hand side currency.
+        /// </summary>
         public CurrencyListItemViewModel SecondCurrency
         {
             get => GetValue<CurrencyListItemViewModel>();
@@ -99,13 +112,20 @@ namespace Core.ViewModels.Screens
             }
         }
 
+        /// <summary>
+        /// Determines which one of the two currencies is presently selected.
+        /// </summary>
         public CurrencyListItemViewModel SelectedCurrency { get; private set; }
 
+        /// <summary>
+        /// Represents the text form of the left-hand side currency amount.
+        /// </summary>
         public string FirstCurrencyText
         {
             get => GetValue<string>();
             set
             {
+                // Input validation.
                 if (!_currencyProcessor.Validate(ref value))
                 {
                     return;
@@ -118,6 +138,7 @@ namespace Core.ViewModels.Screens
                 {
                     _isEditingText = true;
 
+                    // Makes sure both text fields are cleared.
                     if (string.IsNullOrEmpty(FirstCurrencyText))
                     {
                         SecondCurrencyText = string.Empty;
@@ -138,6 +159,7 @@ namespace Core.ViewModels.Screens
                         }
                         catch (OverflowException e)
                         {
+                            // Catches the overflow exception when too large a value is entered.
                             IsError = true;
                         }
                     }
@@ -147,11 +169,15 @@ namespace Core.ViewModels.Screens
             }
         }
 
+        /// <summary>
+        /// Represents the text form of the right-hand side currency amount.
+        /// </summary>
         public string SecondCurrencyText
         {
             get => GetValue<string>();
             set
             {
+                // Input validation.
                 if (!_currencyProcessor.Validate(ref value))
                 {
                     return;
@@ -164,6 +190,7 @@ namespace Core.ViewModels.Screens
                 {
                     _isEditingText = true;
 
+                    // Makes sure both text fields are cleared.
                     if (string.IsNullOrEmpty(SecondCurrencyText))
                     {
                         FirstCurrencyText = string.Empty;
@@ -184,6 +211,7 @@ namespace Core.ViewModels.Screens
                         }
                         catch (OverflowException e)
                         {
+                            // Catches the overflow exception when too large a value is entered.
                             IsError = true;
                         }
                     }
@@ -193,6 +221,9 @@ namespace Core.ViewModels.Screens
             }
         }
 
+        /// <summary>
+        /// Indicates if an error is thrown.
+        /// </summary>
         public bool IsError
         {
             get => GetValue<bool>();
@@ -205,12 +236,20 @@ namespace Core.ViewModels.Screens
 
         #region Commands
 
+        /// <summary>
+        /// Sets the selected currency and navigates to the CurrencyScreen.
+        /// </summary>
+        //TODO: make it async?
         public DelegateCommand<bool> CurrencyScreenCommand { get; private set; }
 
         #endregion
 
         #region Private Helpers
 
+        /// <summary>
+        /// The message handler from the <see cref="CurrencyListItemViewModel"/>.
+        /// </summary>
+        /// <param name="selectedCurrency">The selected currency.</param>
         private void OnMessage(CurrencyListItemViewModel selectedCurrency)
         {
             if (_isfirstCurrency)

@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace Core.Data
 {
+    /// <summary>
+    /// A utility class to support Json processing.
+    /// </summary>
     public static class DataService
     {
         #region Public Methods
 
+        /// <summary>
+        /// Returns a list of <see cref="Currency"/> objects.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public static async Task<IList<Currency>> GetCurrenciesAsync(string url)
         {
             string output = await DownloadDataAsync(url);
@@ -23,6 +31,11 @@ namespace Core.Data
 
         #region Private Helpers
 
+        /// <summary>
+        /// Downloads text information from the web.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         private static async Task<string> DownloadDataAsync(string url)
         {
             string responseBody = string.Empty;
@@ -35,6 +48,11 @@ namespace Core.Data
             return responseBody;
         }
 
+        /// <summary>
+        /// Parses an object array and instantiates <see cref="Currency"/> values.
+        /// </summary>
+        /// <param name="array">The array to process.</param>
+        /// <returns>A <see cref="Currency"/> collection.</returns>
         private static async Task<IList<Currency>> ParseDynamicObjectAsync(object array)
         {
             if (array == null)

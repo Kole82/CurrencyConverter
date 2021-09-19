@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Core.Services
 {
@@ -10,6 +9,7 @@ namespace Core.Services
     {
         #region Constants
 
+        // The rule to validate the input string.
         private const string REGEX_VALUE = @"^\d*\.?\d*$";
 
         #endregion
@@ -34,8 +34,8 @@ namespace Core.Services
         /// <summary>
         /// Performs the conversion between the currencies and calculates the resulting amount.
         /// </summary>
-        /// <param name="firstValue">The first currency value.</param>
-        /// <param name="secondValue">The second currency value.</param>
+        /// <param name="firstValue">The left-hand side currency value.</param>
+        /// <param name="secondValue">The right-hand side currency value.</param>
         /// <param name="amount">The amount to exchange.</param>
         /// <returns></returns>
         public decimal Exchange(decimal firstValue, decimal secondValue, decimal amount)
@@ -47,7 +47,7 @@ namespace Core.Services
         /// Evaluates and edits the input string to comply with the regex rules.
         /// </summary>
         /// <param name="value">The string to evaluate.</param>
-        /// <returns></returns>
+        /// <returns>The validation status: valid (true) or invalid (false).</returns>
         public bool Validate(ref string value)
         {
             // when first loading, the value will be 'null'
