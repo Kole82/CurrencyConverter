@@ -1,0 +1,16 @@
+D:\repos\CurrencyConverter\Core\bin\Debug\Core.dll
+D:\repos\CurrencyConverter\Core\bin\Debug\Core.pdb
+D:\repos\CurrencyConverter\Core\bin\Debug\DevExpress.Mvvm.dll
+D:\repos\CurrencyConverter\Core\bin\Debug\DevExpress.Mvvm.UI.dll
+D:\repos\CurrencyConverter\Core\bin\Debug\Newtonsoft.Json.dll
+D:\repos\CurrencyConverter\Core\bin\Debug\Ninject.dll
+D:\repos\CurrencyConverter\Core\bin\Debug\System.ValueTuple.dll
+D:\repos\CurrencyConverter\Core\bin\Debug\DevExpress.Mvvm.pdb
+D:\repos\CurrencyConverter\Core\bin\Debug\DevExpress.Mvvm.UI.pdb
+D:\repos\CurrencyConverter\Core\bin\Debug\Newtonsoft.Json.xml
+D:\repos\CurrencyConverter\Core\bin\Debug\Ninject.xml
+D:\repos\CurrencyConverter\Core\obj\Debug\Core.csproj.AssemblyReference.cache
+D:\repos\CurrencyConverter\Core\obj\Debug\Core.csproj.CoreCompileInputs.cache
+D:\repos\CurrencyConverter\Core\obj\Debug\Core.csproj.CopyComplete
+D:\repos\CurrencyConverter\Core\obj\Debug\Core.dll
+D:\repos\CurrencyConverter\Core\obj\Debug\Core.pdb
