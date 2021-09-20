@@ -25,8 +25,6 @@ namespace Core.ViewModels.Screens
         private bool _isEditingText = false;
         private bool _isfirstCurrency;
 
-        private decimal _result;
-
         #endregion
 
         #region Constructors
@@ -133,39 +131,7 @@ namespace Core.ViewModels.Screens
 
                 SetValue(value);
 
-                //TODO: refactor into a method
-                if (!_isEditingText)
-                {
-                    _isEditingText = true;
-
-                    // Makes sure both text fields are cleared.
-                    if (string.IsNullOrEmpty(FirstCurrencyText))
-                    {
-                        SecondCurrencyText = string.Empty;
-                        IsError = false;
-                    }
-                    else
-                    {
-                        try
-                        {
-                            _result = _currencyProcessor.Exchange(
-                                FirstCurrency.Value, SecondCurrency.Value, decimal.Parse(FirstCurrencyText));
-
-                            _result = Math.Round(_result, 2);
-
-                            SecondCurrencyText = string.Format("{0:0.##}", _result);
-
-                            IsError = false;
-                        }
-                        catch (OverflowException e)
-                        {
-                            // Catches the overflow exception when too large a value is entered.
-                            IsError = true;
-                        }
-                    }
-
-                    _isEditingText = false;
-                }
+                SetOutput(FirstCurrencyText, text => SecondCurrencyText = text, FirstCurrency.Value, SecondCurrency.Value);
             }
         }
 
@@ -185,39 +151,7 @@ namespace Core.ViewModels.Screens
 
                 SetValue(value);
 
-                //TODO: refactor into a method
-                if (!_isEditingText)
-                {
-                    _isEditingText = true;
-
-                    // Makes sure both text fields are cleared.
-                    if (string.IsNullOrEmpty(SecondCurrencyText))
-                    {
-                        FirstCurrencyText = string.Empty;
-                        IsError = false;
-                    }
-                    else
-                    {
-                        try
-                        {
-                            _result = _currencyProcessor.Exchange(
-                                SecondCurrency.Value, FirstCurrency.Value, decimal.Parse(SecondCurrencyText));
-
-                            _result = Math.Round(_result, 2);
-
-                            FirstCurrencyText = string.Format("{0:0.##}", _result);
-
-                            IsError = false;
-                        }
-                        catch (OverflowException e)
-                        {
-                            // Catches the overflow exception when too large a value is entered.
-                            IsError = true;
-                        }
-                    }
-
-                    _isEditingText = false;
-                }
+                SetOutput(SecondCurrencyText, text => FirstCurrencyText = text, SecondCurrency.Value, FirstCurrency.Value);
             }
         }
 
@@ -259,6 +193,47 @@ namespace Core.ViewModels.Screens
             else
             {
                 SecondCurrency = selectedCurrency;
+            }
+        }
+
+        /// <summary>
+        /// Produces and sets the result of the conversion.
+        /// </summary>
+        /// <param name="input">The text representation of the amount to be converted.</param>
+        /// <param name="output">The text property to set the result to.</param>
+        /// <param name="targetValue">The currency value to convert to.</param>
+        /// <param name="sourceValue">The currency value to convert from.</param>
+        private void SetOutput(string input, Action<string> output, decimal targetValue, decimal sourceValue)
+        {
+            if (!_isEditingText)
+            {
+                _isEditingText = true;
+
+                // Makes sure both text fields are cleared.
+                if (string.IsNullOrEmpty(input))
+                {
+                    output(string.Empty);
+                    IsError = false;
+                }
+                else
+                {
+                    try
+                    {
+                        decimal result = _currencyProcessor.Exchange(targetValue, sourceValue, decimal.Parse(input));
+                        result = Math.Round(result, 2);
+
+                        output(string.Format("{0:0.##}", result));
+
+                        IsError = false;
+                    }
+                    catch (OverflowException e)
+                    {
+                        // Catches the overflow exception when too large a value is entered.
+                        IsError = true;
+                    }
+                }
+
+                _isEditingText = false;
             }
         }
 
